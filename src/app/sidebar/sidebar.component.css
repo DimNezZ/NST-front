@@ -1,0 +1,14 @@
+.bg-gray {
+  background-color: rgb(217, 217, 217);
+}
+
+.li_item {
+  background-color: white;
+  width: 160px;
+  padding: 15px 0;
+  text-align: center;
+}
+
+.link {
+  color: black;
+}
