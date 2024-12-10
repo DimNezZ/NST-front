@@ -1,45 +1,233 @@
 <div class="container py-4">
   <div class="row">
-    <div class="col-lg-10 mx-auto mb-4">
+    <div class="col-lg-11 mx-auto mb-4">
       <div class="section-title text-center">
         <h3 class="top-c-sep">Список сотрудников</h3>
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-lg-10 mx-auto">
-      <div class="mb-60">
-        <div class="form-container">
-          <div
-            class="box d-md-flex align-items-center justify-content-between mb-30"
-          >
-            <div class="left d-md-flex align-items-center flex-wrap">
-              <div
-                class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex"
-              >
-                <img class="img" src="assets/man.png" alt="" />
-              </div>
-              <div class="content d-flex ms-4">
-                <h5 class="text-center text-md-left">Фамилия Имя Отчество</h5>
+  <form [formGroup]="FormEmployee" (submit)="submit()">
+    <div class="row">
+      <div class="col-lg-11 mx-auto">
+        <div class="mb-60">
+          <div class="form-container">
+            <div
+              *ngFor="
+                let employee of EmployeeService.getEmployee();
+                let i = index
+              "
+              class="box d-md-flex align-items-center justify-content-between mb-30"
+            >
+              <div class="left d-md-flex align-items-center flex-wrap">
                 <div
-                  class="d-md-flex gap-3 flex-wrap text-capitalize ff-open-sans mx-5"
+                  class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex"
                 >
-                  <div class="mr-md-4">Должность</div>
-                  <div class="mr-md-4">Отдел</div>
+                  <img class="img" src="assets/man.png" alt="" />
+                </div>
+                <div class="content d-flex ms-4">
+                  <h5 class="text-center text-md-left">
+                    {{ employee.surname }} {{ employee.name }}
+                    {{ employee.patronynic }}
+                  </h5>
+                  <div
+                    class="d-md-flex gap-3 flex-wrap text-capitalize ff-open-sans mx-5"
+                  >
+                    <div class="mr-md-4">{{ employee.position }}</div>
+                    <div class="mr-md-4">{{ employee.department }}</div>
+                  </div>
                 </div>
               </div>
+              <div class="d-flex align-items-center gap-4">
+                <div class="right my-4 flex-shrink-0">
+                  <a
+                    routerLink="/listDepartments"
+                    class="btn d-block w-100 d-sm-inline-block btn-light"
+                    >Открыть</a
+                  >
+                </div>
+                <button
+                  (click)="removeEmployee(i)"
+                  class="btn d-block w-100 d-sm-inline-block btn-light custom-button"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="currentColor"
+                    class="bi bi-trash"
+                    viewBox="0 0 16 16"
+                  >
+                    <path
+                      d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"
+                    />
+                    <path
+                      d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"
+                    />
+                  </svg>
+                </button>
+              </div>
             </div>
-            <div class="right my-4 flex-shrink-0">
-              <a
-                routerLink="/listDepartments"
-                class="btn d-block w-100 d-sm-inline-block btn-light"
-                >Открыть</a
-              >
+
+            <!-- <div
+              class="box d-md-flex align-items-center justify-content-between mb-30"
+            >
+              <div class="left d-md-flex align-items-center flex-wrap">
+                <div
+                  class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex"
+                >
+                  <img class="img" src="assets/man.png" alt="" />
+                </div>
+                <div class="content d-flex ms-4">
+                  <h5 class="text-center text-md-left">Фамилия Имя Отчество</h5>
+                  <div
+                    class="d-md-flex gap-3 flex-wrap text-capitalize ff-open-sans mx-5"
+                  >
+                    <div class="mr-md-4">Должность</div>
+                    <div class="mr-md-4">Отдел</div>
+                  </div>
+                </div>
+              </div>
+              <div class="right my-4 flex-shrink-0">
+                <a
+                  routerLink="/listDepartments"
+                  class="btn d-block w-100 d-sm-inline-block btn-light"
+                  >Открыть</a
+                >
+              </div>
+            </div> -->
+            <div
+              class="box d-md-flex align-items-center justify-content-between mb-30"
+            >
+              <div class="left d-md-flex align-items-center flex-wrap">
+                <!-- <div
+                  class="img-holder mr-md-4 mb-md-0 mb-4 mx-auto mx-md-0 d-md-none d-lg-flex"
+                >
+                  <img class="img" src="assets/man.png" alt="" />
+                </div> -->
+                <div class="content d-flex ms-4">
+                  <div class="d-flex gap-3">
+                    <div>
+                      <input
+                        type="text"
+                        name="Surname"
+                        placeholder="Фамилия"
+                        id="Surname"
+                        class="custom-input"
+                        [formControl]="SurnameControl"
+                      />
+                      <div
+                        *ngIf="
+                          SurnameControl.invalid &&
+                          (SurnameControl.touched || SurnameControl.dirty) &&
+                          SurnameControl.hasError('required')
+                        "
+                        class="text-danger small position-absolute"
+                      >
+                        Обязательное поле
+                      </div>
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        name="Name"
+                        placeholder="Имя"
+                        id="Name"
+                        class="custom-input"
+                        [formControl]="NameControl"
+                      />
+                      <div
+                        *ngIf="
+                          NameControl.invalid &&
+                          (NameControl.touched || NameControl.dirty) &&
+                          NameControl.hasError('required')
+                        "
+                        class="text-danger small position-absolute"
+                      >
+                        Обязательное поле
+                      </div>
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        name="Patronymic"
+                        placeholder="Отчество"
+                        id="Patronymic"
+                        class="custom-input"
+                        [formControl]="PatronymicControl"
+                      />
+                      <div
+                        *ngIf="
+                          PatronymicControl.invalid &&
+                          (PatronymicControl.touched ||
+                            PatronymicControl.dirty) &&
+                          PatronymicControl.hasError('required')
+                        "
+                        class="text-danger small position-absolute"
+                      >
+                        Обязательное поле
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="d-md-flex gap-3 flex-wrap text-capitalize ff-open-sans mx-5"
+                  >
+                    <div>
+                      <input
+                        type="text"
+                        name="Position"
+                        placeholder="Должность"
+                        id="Position"
+                        class="mr-md-4 custom-input"
+                        [formControl]="PositionControl"
+                      />
+                      <div
+                        *ngIf="
+                          PositionControl.invalid &&
+                          (PositionControl.touched || PositionControl.dirty) &&
+                          PositionControl.hasError('required')
+                        "
+                        class="text-danger small position-absolute"
+                      >
+                        Обязательное поле
+                      </div>
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        name="Department"
+                        placeholder="Отдел"
+                        id="Department"
+                        class="mr-md-4 custom-input"
+                        [formControl]="DepartmentControl"
+                      />
+                      <div
+                        *ngIf="
+                          DepartmentControl.invalid &&
+                          (DepartmentControl.touched ||
+                            DepartmentControl.dirty) &&
+                          DepartmentControl.hasError('required')
+                        "
+                        class="text-danger small position-absolute"
+                      >
+                        Обязательное поле
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="right my-4 flex-shrink-0">
+                <button
+                  type="submit"
+                  class="btn d-block w-100 d-sm-inline-block btn-light custom-button"
+                >
+                  Создать
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </form>
 </div>
